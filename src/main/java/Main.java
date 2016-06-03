@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Main extends JFrame{ // 此class本次沒有用到
 	
-	private final static int windowWidth = 1200, windowHeight = 670;
+	private final static int windowWidth = 1400, windowHeight = 714;
 	
 	public void start(){
 		

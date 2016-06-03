@@ -1,10 +1,19 @@
 package main.java;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import controlP5.ControlP5;
 import de.looksgood.ani.Ani;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 import processing.event.KeyEvent;
@@ -24,19 +33,12 @@ public class MainApplet extends PApplet{
 	JSONArray nodes ,links;   // 此JSONArray 用來儲存json檔案裡面的不同陣列 
 	private int[] inside = new int[50];
 	private int index;  
-	/*
-	 * inside 是一個陣列 初始化都是0 
-	 * inside陣列大小會 大於所有json檔案的物件 
-	 * index也是一個int用來記錄inside陣列中第幾個物件
-	 * 若使用者將左邊的一個物件移動到右邊的大圈圈上時
-	 * 則會將此物件是存在JSONArray中的第幾個的編號存下來 並 = index
-	 * 再讓 inside[index] = 1 
-	 * 此時就可以分辨 該物件是在左邊尚未選擇 或是在右邊已經加入
-	 */
 	private float angle,perangle,numOfcircle;  //紀錄右邊大圓形上有幾個物件 紀錄每個物件的相隔角度
 	private ArrayList<Character> characters;  // 此陣列記下 json中nodes陣列中的所有資料
 	private ArrayList<Character> targets ;   //  此陣列記下json中links陣列中的所有資料
 	private ControlP5 cp5;					// 按鈕
+	
+	public PImage photo;
 	public void setup() {				// 所有值的初始化
 		size(width, height);           // 設置視窗大小
 		characters = new ArrayList<Character>();   // 宣告陣列
@@ -45,6 +47,9 @@ public class MainApplet extends PApplet{
 		for(int i=0;i<50;i++) inside[i]=0;   // 最一開始所有的物件都在左邊 即 所有的inside[]都 = 0 
 		smooth();
 		loadData();  //讀取資料
+		
+		photo = loadImage("Characters.png");
+		size(1023, 714);  
 		cp5 = new ControlP5(this);
 		cp5.addButton("buttonA").setLabel("ADD all").setPosition(8*width/10, 1*height/10).setSize(200, 50); // 初始化全加的按鈕
 		cp5.addButton("buttonB")  // 初始化全部清除的按鈕
@@ -55,20 +60,15 @@ public class MainApplet extends PApplet{
 	}
 
 	public void draw() {   // 此class會一直執行  一直刷新視窗
-		//System.out.println(Server.num);
-		/*if(Server.num<2){
-			background(100,100,100) ;
-			cp5.setVisible(false) ;
-			fill(0); // 設置字的顏色
-			textSize(26);
-			text("Please Fucking Waiting For Another Client", width/4, height/16);  // 顯示出字 此文字是在視窗最中間 用來表示現在是star war的第幾集
-		}*/
 		if(Client.ready == 0){
 			background(100,100,100) ;
+			//g.drawImage(character, 100, 100, this);
 			cp5.setVisible(false) ;
 			fill(0); // 設置字的顏色
 			textSize(26);
 			text("Please Fucking Waiting For Another Client", width/4, height/16);
+			image(photo,0,0);
+			
 		}
 		else {
 			cp5.setVisible(true);
