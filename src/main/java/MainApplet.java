@@ -41,11 +41,11 @@ public class MainApplet extends PApplet{
 	
 	public PImage photo,confirm;
 	private ArrayList<ChoseCharacter> character;
-	private int whichchar = 1 ;
+	private int whichchar = 0 ;
 	public void setup() {				// 所有值的初始化
 		size(width, height);           // 設置視窗大小
 		
-		confirm = loadImage("confirm.png") ;
+		
 		
 		size(1423, 714);
 		character = new ArrayList<ChoseCharacter>();
@@ -59,8 +59,7 @@ public class MainApplet extends PApplet{
 
 	public void draw() {   // 此class會一直執行  一直刷新視窗
 		if(Client.ready == 0){
-			background(0,0,0) ;
-			image (confirm,1100,200) ;
+			background(255,255,255) ;
 			for (ChoseCharacter character_:character){   
 				character_.display();	// 顯示出每個物件
 			}
@@ -95,23 +94,31 @@ public class MainApplet extends PApplet{
 	public void keyPressed(KeyEvent e){  // 當按鍵按下 數字 1~7 時  可以依序改成 star wars的 json 1~7 
 		if(Client.ready == 0){
 			if(keyCode == UP){
-				if(whichchar>=5){
+				if(whichchar>3){
+					character.get(whichchar).setthis(false);
 					whichchar-=4 ;
+					character.get(whichchar).setthis(true);
 				}
 			}
 			if(keyCode == DOWN){
-				if(whichchar<=4){
+				if(whichchar<4){
+					character.get(whichchar).setthis(false);
 					whichchar+=4 ;
+					character.get(whichchar).setthis(true);
 				}
 			}
 			if(keyCode == LEFT){
-				if(whichchar>1){
+				if(whichchar>0){
+					character.get(whichchar).setthis(false);
 					whichchar-- ;
+					character.get(whichchar).setthis(true);
 				}
 			}
 			if(keyCode == RIGHT){
-				if(whichchar<8){
+				if(whichchar<7){
+					character.get(whichchar).setthis(false);
 					whichchar ++ ;
+					character.get(whichchar).setthis(true);
 				}
 			}
 		}
