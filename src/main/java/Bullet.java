@@ -11,15 +11,15 @@ import processing.core.PImage;
 * This class is used to store states of the characters in the program.
 * You will need to declare other variables depending on your implementation.
 */
-public class Bullet {  // ¦¹class¥i¥H¥NªíÅã¥Ü¥Xªº¨C¤@­Ó¤p°é°é´N¬O¤@­Ócharacter,¤]´N¬O¤@­Óobject
-	private MainApplet parent;   // ³oÃä«Å§i¨C¤@­Óª«¥ó©Ò·|¥Î¨ì¤Î»Ý­n¥Î¨ìªºÅÜ¼Æ
-	private float x , y ;  // x,y°O¤U¨C­Óª«¥ó·í¤Uªºx®y¼Ð¥H¤Îy®y¼Ð
+public class Bullet {  // ï¿½ï¿½classï¿½iï¿½Hï¿½Nï¿½ï¿½ï¿½ï¿½Ü¥Xï¿½ï¿½ï¿½Cï¿½@ï¿½Ó¤pï¿½ï¿½ï¿½Nï¿½Oï¿½@ï¿½ï¿½character,ï¿½]ï¿½Nï¿½Oï¿½@ï¿½ï¿½object
+	private MainApplet parent;   // ï¿½oï¿½ï¿½Å§iï¿½Cï¿½@ï¿½Óªï¿½ï¿½ï¿½Ò·|ï¿½Î¨ï¿½Î»Ý­nï¿½Î¨ìªºï¿½Ü¼ï¿½
+	private float x , y ;  // x,yï¿½Oï¿½Uï¿½Cï¿½Óªï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½xï¿½yï¿½Ð¥Hï¿½ï¿½yï¿½yï¿½ï¿½
 	private float init_x,init_y;
 	private float radius,div;
 	private PImage photo;
 	private float point_x[],point_y[];
 	private int index;
-	public Bullet(MainApplet parent,PImage photo,float x ,float y,float radius){  // ªì©l¤Æ¨C¤@­Óª«¥ó
+	public Bullet(MainApplet parent,PImage photo,float x ,float y,float radius){  // ï¿½ï¿½lï¿½Æ¨Cï¿½@ï¿½Óªï¿½ï¿½ï¿½
 		this.parent = parent;
 		this.photo = photo;
 		this.x = x ;
@@ -30,22 +30,22 @@ public class Bullet {  // ¦¹class¥i¥H¥NªíÅã¥Ü¥Xªº¨C¤@­Ó¤p°é°é´N¬O¤@­Ócharacter,¤
 		this.point_x = new float[100];
 		this.point_y = new float[100];
 	}
-	public void setX(float x){  // ¥i¥H§Y®É³]©w¦¹ª«¥óªºx®y¼Ð
+	public void setX(float x){  // ï¿½iï¿½Hï¿½Yï¿½É³]ï¿½wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½yï¿½ï¿½
 		this.x = x;
 	}
-	public void setY(float y){  // ¥i¥H§Y®É³]©w¦¹ª«¥óªºy®y¼Ð
+	public void setY(float y){  // ï¿½iï¿½Hï¿½Yï¿½É³]ï¿½wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½yï¿½ï¿½
 		this.y = y;
 	}
-	public float getX(){   // ¥i¥H¨ú±o¦¹ª«¥óªº·í¤Uy®y¼Ð
+	public float getX(){   // ï¿½iï¿½Hï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½óªº·ï¿½Uyï¿½yï¿½ï¿½
 		return x ;
 	}
-	public float getY(){  // ¥i¥H¨ú±o¦¹ª«¥óªº·í¤Uy®y¼Ð
+	public float getY(){  // ï¿½iï¿½Hï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½óªº·ï¿½Uyï¿½yï¿½ï¿½
 		return y ;
 	}
 	public void setImage(PImage photo){
 		this.photo = photo;
 	}
-	public void display(boolean shoot){   // Åã¥Ü¥Xª«¥ó ­nÅã¥ÜªºªF¦è
+	public void display(boolean shoot){   // ï¿½ï¿½Ü¥Xï¿½ï¿½ï¿½ï¿½ ï¿½nï¿½ï¿½Üªï¿½ï¿½Fï¿½ï¿½
 		if(shoot){
 			if(index<99){
 				this.parent.image(this.photo,x,y);
@@ -60,13 +60,13 @@ public class Bullet {  // ¦¹class¥i¥H¥NªíÅã¥Ü¥Xªº¨C¤@­Ó¤p°é°é´N¬O¤@­Ócharacter,¤
 			if(index<99)index++;
 		}
 	}
-	public void setPath(float speed,float angle){
+	public void setPath(float speed_X,float speed_Y){
 		float time=0;
-		float total_time = (float) ((speed*angle*2)/9.8);
+		float total_time = (float) ((speed_Y*2)/9.8);
 		div = total_time/100;
 		for(int i=0;i<100;i++){
-			point_x[i] = (speed*angle*time);
-			point_y[i] = (float) (speed*angle*time+ 0.5*-9.8*time*time);
+			point_x[i] = (speed_X*time);
+			point_y[i] = (float) (speed_Y*time+ 0.5*-9.8*time*time);
 			time += div;
 		}
 	

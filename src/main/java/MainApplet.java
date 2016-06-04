@@ -33,6 +33,9 @@ public class MainApplet extends PApplet{
 	private int whichchar = 0 ;
 	private boolean shoot;
 	private Bullet bullet;
+	
+	private Dirction dirction;
+	private Power character_power;
 
 	public void setup() {				
 		size(width, height);           
@@ -42,12 +45,15 @@ public class MainApplet extends PApplet{
 			character.add(new ChoseCharacter(this,loadImage(i+"_big.png"),i));
 		}
 		cp5 = new ControlP5(this);
-		cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); // ªì©l¤Æ¥ş¥[ªº«ö¶s
+		cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); // ï¿½ï¿½lï¿½Æ¥ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½s
 		smooth();
 		loadData();
 		Ani.init(this);  
 		shoot = false;
 		bullet = new Bullet(this,loadImage("bullet.png"),200,300,50);
+		
+		dirction = new Dirction(this,200,200,250,200);
+		character_power = new Power(this);
 	}
 
 	public void draw() {   
@@ -62,7 +68,17 @@ public class MainApplet extends PApplet{
 		else {
 			background(255,255,255);
 			bullet.display(shoot);
+			
+			dirction.display();
+			character_power.display();
+			if (dirction.get_state() == 1) {
+				dirction.turn();
+			}
+			if (character_power.get_state() == 1) {
+				character_power.addpower();
+			}
 		}
+		
 	}
 	public void mouseMoved(){    
 		int mousex = mouseX ;    
@@ -73,14 +89,15 @@ public class MainApplet extends PApplet{
 		int mousex = mouseX ;   
 		int mousey = mouseY ;
 		
+		character_power.set_state(1);
     }
 	public void mouseDragged(){    
 		
 	}
-	public void mouseReleased(){   // °»´ú·í·Æ¹«©ñ±¼®É   ¸Óª«¥ó¦³¨S¦³¦b ¥kÃäªº¤j¶ê°é¤W
-		
+	public void mouseReleased(){   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ñ±¼®ï¿½   ï¿½Óªï¿½ï¿½ó¦³¨Sï¿½ï¿½ï¿½b ï¿½kï¿½äªºï¿½jï¿½ï¿½ï¿½W
+		character_power.set_state(0);
 	}
-	public void keyPressed(KeyEvent e){  // ·í«öÁä«ö¤U ¼Æ¦r 1~7 ®É  ¥i¥H¨Ì§Ç§ï¦¨ star warsªº json 1~7 
+	public void keyPressed(KeyEvent e){  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½U ï¿½Æ¦r 1~7 ï¿½ï¿½  ï¿½iï¿½Hï¿½Ì§Ç§ï¦¨ star warsï¿½ï¿½ json 1~7 
 		if(Client.ready == 0){
 			if(keyCode == UP){
 				if(whichchar>3){
@@ -112,10 +129,25 @@ public class MainApplet extends PApplet{
 			}
 		}
 		else {
-			
+			if (e.getKeyCode() == 49) {
+				dirction.set_state(1);
+			}
+			else if (e.getKeyCode() == 50) {
+				dirction.set_state(0);
+			}
+			else if (e.getKeyCode() == 51) {
+				character_power.set_vx(character_power.get_power()  * cos(dirction.get_angle()));
+				character_power.set_vy(character_power.get_power()  * sin(dirction.get_angle()));
+				//å°å‡ºè§’åº¦ã€åŠ›é‡ã€xæ–¹å‘é€Ÿåº¦ã€yæ–¹å‘é€Ÿåº¦
+				System.out.println(dirction.get_angle());
+				System.out.println(character_power.get_power());
+				System.out.println(character_power.get_vx());
+				System.out.println(character_power.get_vy());
+				//go_state = 1;
+			}
 		}
 	}
-	private void loadData(){   // Åª¨ú¸ê®Æ 
+	private void loadData(){   // Åªï¿½ï¿½ï¿½ï¿½ï¿½ 
 		int chx , chy ;
 		chx =10;chy=10;
 		for (int i = 0 ;i < character.size();i++){
@@ -129,7 +161,7 @@ public class MainApplet extends PApplet{
 		}
 	}
 	public void buttonA(){
-		bullet.setPath((float)50, (float)1.2);
+		bullet.setPath(character_power.get_vx(),character_power.get_vy());
 		shoot = true;
 	}
 }
