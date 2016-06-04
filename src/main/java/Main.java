@@ -15,8 +15,6 @@ public class Main extends JFrame{ // 此class本次沒有用到
 	private final static int windowWidth = 1400, windowHeight = 714;
 	
 	public void start(){
-		
-		
 		MainApplet applet = new MainApplet();
 		applet.init();
 		applet.start();
