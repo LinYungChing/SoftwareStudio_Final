@@ -143,7 +143,8 @@ public class Store{
 				break;
 			if(i.getInCenter())
 				i.setInCenter(false);
-			i.setX(i.getX() + gap);
+				Ani.to(i, 2, "x",(float)(i.getX() + gap));
+				i.setX(i.getX() + gap);
 			if(i.getX() == centerX)
 				i.setInCenter(true);
 			tmp++;
@@ -160,10 +161,11 @@ public class Store{
 		for(StoreItem i : item){
 			if(i.getInCenter())
 				i.setInCenter(false);
-			//Ani.to(this, 2, "x",(float)(i.getX() - gap));
-			i.setX(i.getX() - gap);
+				Ani.to(i, 2, "x",(float)(i.getX() - gap));
+				i.setX(i.getX() - gap);
 			if(i.getX() == centerX)
 				i.setInCenter(true);
+
 		}
 	}
 	public void pushUpgrade() {
