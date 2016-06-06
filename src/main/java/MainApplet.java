@@ -33,6 +33,7 @@ public class MainApplet extends PApplet{
 	private int whichchar = 0 ;
 	private boolean shoot;
 	private Bullet bullet;
+	private Store store;
 
 	public void setup() {				
 		size(width, height);           
@@ -43,11 +44,13 @@ public class MainApplet extends PApplet{
 		}
 		cp5 = new ControlP5(this);
 		cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); // 初始化全加的按鈕
+		cp5.addButton("buttonStore").setLabel("Store").setPosition(8*width/10, 1*height/10+100).setSize(200, 50); 
 		smooth();
 		loadData();
 		Ani.init(this);  
 		shoot = false;
 		bullet = new Bullet(this,loadImage("bullet.png"),200,300,50);
+		store = new Store(this);
 	}
 
 	public void draw() {   
@@ -57,12 +60,14 @@ public class MainApplet extends PApplet{
 				character_.display();	
 			}
 			textSize(60);
-			fill(255,0,0); 
+			fill(255,0,0);
+			
 		}
 		else {
 			background(255,255,255);
 			bullet.display(shoot);
 		}
+		store.display(store.getInStore());
 	}
 	public void mouseMoved(){    
 		int mousex = mouseX ;    
@@ -131,5 +136,28 @@ public class MainApplet extends PApplet{
 	public void buttonA(){
 		bullet.setPath((float)50, (float)1.2);
 		shoot = true;
+	}
+	public void buttonStore(){
+		if(!store.getInStore())
+			store.reset();
+		store.setInStore(true);
+	}
+	public void buttonBack() {
+		store.setInStore(false);
+	}
+	public void buttonLeft() {
+		store.pushLeft();
+	}
+	public void buttonRight() {
+		store.pushRight();
+	}
+	public void buttonUpgrade() {
+		store.pushUpgrade();
+	}
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 }
