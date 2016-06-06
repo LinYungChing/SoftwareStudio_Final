@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import controlP5.Button;
 import controlP5.ControlP5;
 import controlP5.Controller;
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -121,7 +122,7 @@ public class Store{
 				}
 				else
 					parent.image(i.getImage(), i.getX(), i.getY(), itemWidth, itemHeight);
-				
+					
 				
 			}
 			cp5.setVisible(true);
@@ -159,6 +160,7 @@ public class Store{
 		for(StoreItem i : item){
 			if(i.getInCenter())
 				i.setInCenter(false);
+			//Ani.to(this, 2, "x",(float)(i.getX() - gap));
 			i.setX(i.getX() - gap);
 			if(i.getX() == centerX)
 				i.setInCenter(true);
