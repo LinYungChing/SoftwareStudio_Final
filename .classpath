@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="C:/Users/ASUS/Downloads/Libraries/Libraries/Processing/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASUS/Downloads/Libraries/Libraries/controlP5/controlP5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ASUS/Downloads/Libraries/Libraries/Ani/Ani.jar"/>
+=======
+	<classpathentry kind="lib" path="/Users/brank12345/Desktop/軟實文字檔/Lab7 Materials/lib/core.jar"/>
+	<classpathentry kind="lib" path="/Users/brank12345/Desktop/軟實文字檔/Libraries/Ani/Ani.jar"/>
+	<classpathentry kind="lib" path="/Users/brank12345/Desktop/軟實文字檔/Libraries/controlP5/controlP5.jar"/>
+>>>>>>> 132d579a69837e4356dda92ba99da7f9a3dcc800
+=======
+	<classpathentry kind="lib" path="C:/Users/YungChing/Desktop/軟體實驗/Lab8Practice/lib/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/YungChing/Desktop/軟體實驗/Lab8Practice/lib/Ani.jar"/>
+	<classpathentry kind="lib" path="C:/Users/YungChing/Desktop/軟體實驗/Lab8Practice/lib/controlP5.jar"/>
+>>>>>>> Stashed changes
+	<classpathentry kind="output" path="bin"/>
+</classpath>
