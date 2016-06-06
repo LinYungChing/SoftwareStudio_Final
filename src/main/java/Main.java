@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 public class Main extends JFrame{ // 此class本次沒有用到
 	
 	private final static int windowWidth = 1400, windowHeight = 714;
-	
+	public MainApplet applet ;
 	public void start(){
-		MainApplet applet = new MainApplet();
+		applet = new MainApplet();
 		applet.init();
 		applet.start();
 		applet.setFocusable(true);
@@ -26,5 +26,11 @@ public class Main extends JFrame{ // 此class本次沒有用到
 		window.setSize(windowWidth, windowHeight);
 		window.setVisible(true);
 		
+	}
+	public boolean ismeupress(){
+		if(applet.ismenupress()==true){
+			return true ;
+		}
+		else return false ;
 	}
 }

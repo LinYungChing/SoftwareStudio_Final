@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+
 import controlP5.ControlP5;
 import de.looksgood.ani.Ani;
 import processing.core.PApplet;
@@ -27,19 +28,15 @@ import processing.event.KeyEvent;
 public class MainApplet extends PApplet{
 	private final static int width = 1400, height = 714;  
 	private ArrayList<Character> characters;  
-	private ControlP5 cp5;					
+	private ControlP5 cp5,cp4;					
 	public PImage photo,confirm;
 	private ArrayList<ChoseCharacter> character;
 	private int whichchar = 0 ;
 	private boolean shoot;
 	private Bullet bullet;
-<<<<<<< HEAD
-	private Store store;
-=======
-	
+	private Menu menu ;
 	private Dirction dirction;
 	private Power character_power;
->>>>>>> 132d579a69837e4356dda92ba99da7f9a3dcc800
 
 	public void setup() {				
 		size(width, height);           
@@ -48,36 +45,46 @@ public class MainApplet extends PApplet{
 		for (int i = 1 ;i <=8;i++){
 			character.add(new ChoseCharacter(this,loadImage(i+"_big.png"),i));
 		}
-		cp5 = new ControlP5(this);
-<<<<<<< HEAD
-		cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); // ��l�ƥ��[�����s
-		cp5.addButton("buttonStore").setLabel("Store").setPosition(8*width/10, 1*height/10+100).setSize(200, 50); 
-=======
-		cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); // ��l�ƥ��[�����s
->>>>>>> 132d579a69837e4356dda92ba99da7f9a3dcc800
+		//cp5 = new ControlP5(this);
+		//cp5.addButton("buttonA").setLabel("Attack").setPosition(8*width/10, 1*height/10).setSize(200, 50); 
 		smooth();
 		loadData();
 		Ani.init(this);  
 		shoot = false;
 		bullet = new Bullet(this,loadImage("bullet.png"),200,300,50);
-<<<<<<< HEAD
-		store = new Store(this);
-=======
 		
 		dirction = new Dirction(this,200,200,250,200);
 		character_power = new Power(this);
->>>>>>> 132d579a69837e4356dda92ba99da7f9a3dcc800
+		menu = new Menu(this,loadImage("menu.jpg")) ; 
+		
+		
+		cp4 = new ControlP5(this);
+		cp4.addButton("button5").setLabel("TRY").setPosition(8*width/10, 1*height/10).setSize(200, 50); 
+		
 	}
-
+	private boolean menupress ;
 	public void draw() {   
 		if(Client.ready == 0){
+			// this is chose character
+			/*background(255,255,255) ;
+			for (ChoseCharacter character_:character){   
+				character_.display();	
+			}
+			textSize(60);
+			fill(255,0,0); */  
+			menu.display() ;
+			if(menu.press()==true){
+				System.out.println("presss");
+			}
+		}
+		else if(Client.chara == 1){
+			
 			background(255,255,255) ;
 			for (ChoseCharacter character_:character){   
 				character_.display();	
 			}
 			textSize(60);
 			fill(255,0,0);
-			
 		}
 		else {
 			background(255,255,255);
@@ -92,7 +99,9 @@ public class MainApplet extends PApplet{
 				character_power.addpower();
 			}
 		}
-		store.display(store.getInStore());
+		
+		
+		
 	}
 	public void mouseMoved(){    
 		int mousex = mouseX ;    
@@ -109,10 +118,10 @@ public class MainApplet extends PApplet{
 	public void mouseDragged(){    
 		
 	}
-	public void mouseReleased(){   // ������ƹ��񱼮�   �Ӫ��󦳨S���b �k�䪺�j���W
+	public void mouseReleased(){   // 
 		character_power.set_state(0);
 	}
-	public void keyPressed(KeyEvent e){  // �������U �Ʀr 1~7 ��  �i�H�̧ǧ令 star wars�� json 1~7 
+	public void keyPressed(KeyEvent e){  // 
 		if(Client.ready == 0){
 			if(keyCode == UP){
 				if(whichchar>3){
@@ -153,7 +162,7 @@ public class MainApplet extends PApplet{
 			else if (e.getKeyCode() == 51) {
 				character_power.set_vx(character_power.get_power()  * cos(dirction.get_angle()));
 				character_power.set_vy(character_power.get_power()  * sin(dirction.get_angle()));
-				//印出角度、力量、x方向速度、y方向速度
+				//
 				System.out.println(dirction.get_angle());
 				System.out.println(character_power.get_power());
 				System.out.println(character_power.get_vx());
@@ -162,7 +171,7 @@ public class MainApplet extends PApplet{
 			}
 		}
 	}
-	private void loadData(){   // Ū����� 
+	private void loadData(){   // 
 		int chx , chy ;
 		chx =10;chy=10;
 		for (int i = 0 ;i < character.size();i++){
@@ -179,27 +188,24 @@ public class MainApplet extends PApplet{
 		bullet.setPath(character_power.get_vx(),character_power.get_vy());
 		shoot = true;
 	}
-	public void buttonStore(){
-		if(!store.getInStore())
-			store.reset();
-		store.setInStore(true);
+	public int getwidth(){
+		return this.width ;
 	}
-	public void buttonBack() {
-		store.setInStore(false);
+	public int getHeight(){
+		return this.height ;
 	}
-	public void buttonLeft() {
-		store.pushLeft();
+	private String input ;
+	public boolean ismenupress(){
+		input = "menupress" ;
+		System.out.println(input);
+		Client.writer.println(input);
+		
+		return menupress ;
 	}
-	public void buttonRight() {
-		store.pushRight();
-	}
-	public void buttonUpgrade() {
-		store.pushUpgrade();
-	}
-	public int getWidth() {
-		return width;
-	}
-	public int getHeight() {
-		return height;
+	public void button5(){
+		input = "menupress" ;
+		System.out.println("Mainapple  : "+input);
+		Client.writer.println(input);
+		Client.writer.flush();
 	}
 }
