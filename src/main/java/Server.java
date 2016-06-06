@@ -40,9 +40,9 @@ public class Server {
 		Index = random.nextInt(51);
 		while(check[Index]==1) Index = random.nextInt(51);
 		check[Index]=1;
-		
+		/*
 		connections.get(0).sendMessage(Integer.toString(Index));	//分別將index的值傳給client
-		connections.get(1).sendMessage(Integer.toString(Index));
+		connections.get(1).sendMessage(Integer.toString(Index));*/
 	}
 	public void runForever() {	//此為會一直跑的method，用來接受client連線
 		System.out.println("Server starts waiting for client.");
@@ -94,7 +94,13 @@ public class Server {
 				String line;
  				try {
 					line = this.reader.readLine();	//若有傳訊息來，則會讀到line當中
-					ans[ansnum] = new String(line);	//將client傳送之答案加到陣列中
+					
+					if(line.equals("menupress")){
+						System.out.println("Server : " + line);
+						connections.get(0).sendMessage("char");	//並傳送solve的訊息給client
+						//connections.get(1).sendMessage("char");
+					}
+					/*ans[ansnum] = new String(line);	//將client傳送之答案加到陣列中
 					ansnum++;	//並增加傳送來的答案個數
 					if(ansnum>=2){	//若兩方皆傳送答案， 則開始比對
 						if(ans[0].equals(ans[1])){	//若一樣，則代表解決了
@@ -106,7 +112,7 @@ public class Server {
 							connections.get(1).sendMessage("wrong");
 						}
 						ansnum = 0;
-					}
+					}*/
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
